@@ -34,6 +34,8 @@ const userSchema = mongoose.Schema({
             name:String,
         }
     ],
+    activityLevel: { type: Number, default: 0 },
+    totalTransactions: { type: Number, default: 0 }
 })
 
 userSchema.pre('save', async function(next) {

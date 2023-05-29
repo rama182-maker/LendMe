@@ -8,10 +8,6 @@ const createToken = (id) => {
     return jwt.sign({id},'secret',{expiresIn: maxAge});
 }
 
-module.exports.GetSignUp = (req, res) => {
-    res.send('signup');
-};
-
 module.exports.SignUp = async (req, res) => {
     try{
         let name = req.body.name;
@@ -31,10 +27,6 @@ module.exports.SignUp = async (req, res) => {
         console.error(err);
         return errorResponse(res, "Internal Server Error", 500, { error: err });
     }
-};
-
-module.exports.GetLogin = (req, res) => {
-    res.send('login');
 };
 
 module.exports.Login = async (req, res) => {
