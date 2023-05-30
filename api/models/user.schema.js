@@ -34,6 +34,8 @@ const userSchema = mongoose.Schema({
             name:String,
         }
     ],
+    canLend: { type: Boolean, default: false },
+    lendAmount: {type: Number, default: 0},
     activityLevel: { type: Number, default: 0 },
     totalTransactions: { type: Number, default: 0 }
 })

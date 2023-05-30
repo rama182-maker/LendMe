@@ -21,7 +21,8 @@ module.exports.SignUp = async (req, res) => {
         const token = createToken(user._id);
         res.cookie('jwt',token,{httpOnly:true,maxAge});
         res.status(201).json({
-            user:user._id
+            user:user._id,
+            userName: user.name
         });
     } catch (err) {
         console.error(err);
@@ -37,7 +38,10 @@ module.exports.Login = async (req, res) => {
         const user = await User.login(email,password);
         const token = createToken(user._id);
         res.cookie('jwt',token,{httpOnly:true,maxAge});
-        res.status(200).json({user:user._id});
+        res.status(201).json({
+            user:user._id,
+            userName: user.name
+        });
     } catch (err) {
         console.error(err);
         return errorResponse(res, "Internal Server Error", 500, { error: err });

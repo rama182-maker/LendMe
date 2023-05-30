@@ -7,6 +7,7 @@ const { checkAccessToken } = require('../middleware/auth.middleware');
 router.post("/requestconnection",checkAccessToken, userController.RequestConnection);
 router.post("/withdrawrequest",checkAccessToken, userController.WithdrawConnection);
 router.post("/respondtorequest",checkAccessToken, userController.RespondToRequest);
+router.post("/setlendingstatus",checkAccessToken, userController.SetLendingStatus);
 
 // GET
 router.get("/getallconnections",checkAccessToken, userController.GetAllConnections);

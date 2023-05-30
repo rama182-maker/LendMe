@@ -111,7 +111,6 @@ module.exports.GetAllConnections = async (req, res) => {
 module.exports.GetPendingRequests = async (req, res) => {
   try {
     let userId = req.userData.id;
-    // Find the user to whom the connection request was sent
     let user = await User.findById(userId);
     return res.status(200).json({
         no_of_pending_connections: user.pending.length,
@@ -123,7 +122,7 @@ module.exports.GetPendingRequests = async (req, res) => {
   }
 };
 
-// See how this endpoint need to be triggered ... 
+// See how/when this endpoint need to be triggered ... 
 module.exports.GetEligibleRewards = async (req, res) => {
   try {
     let userId = req.userData.id;
@@ -164,6 +163,41 @@ module.exports.GetEligibleRewards = async (req, res) => {
         activityReward : activityReward,
         transactionReward: transactionReward,
         totalReward: totalReward,
+    });
+  } catch (err) {
+      console.error(err);
+      return res.status(500).json({ message: 'Internal server error' });
+  }
+};
+
+module.exports.SetLendingStatus = async (req, res) => {
+  try {
+    let userId = req.userData.id;
+    let lend = req.body.canLend;
+    let Amount = req.body.Amount;
+    let user = await User.findById(userId);
+
+    let message = null;
+    if(lend == true && Amount > 0) {
+      message = "Able to Lend!";
+      user.canLend = lend;
+      user.lendAmount = Amount;
+      user.save();
+    } else if (lend == true && Amount <= 0) {
+      message = "Change lending status as lending amount is 0!";
+    } else if (lend == false && Amount == 0) {
+      message = "Not Able to Lend!";
+      user.canLend = lend;
+      user.lendAmount = Amount;
+      user.save();
+    } else if (lend == false && Amount > 0) {
+      message = "Change lending status as lending amount is greater than 0!";
+    }
+
+    return res.status(200).json({
+        message : message,
+        canLend: user.canLend,
+        lendAmount: user.lendAmount,
     });
   } catch (err) {
       console.error(err);
