@@ -22,7 +22,8 @@ module.exports.SignUp = async (req, res) => {
         res.cookie('jwt',token,{httpOnly:true,maxAge});
         res.status(201).json({
             user:user._id,
-            userName: user.name
+            userName: user.name,
+            token: token
         });
     } catch (err) {
         console.error(err);
@@ -40,7 +41,8 @@ module.exports.Login = async (req, res) => {
         res.cookie('jwt',token,{httpOnly:true,maxAge});
         res.status(201).json({
             user:user._id,
-            userName: user.name
+            userName: user.name,
+            token: token
         });
     } catch (err) {
         console.error(err);
