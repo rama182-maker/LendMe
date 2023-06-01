@@ -204,3 +204,24 @@ module.exports.SetLendingStatus = async (req, res) => {
       return res.status(500).json({ message: 'Internal server error' });
   }
 };
+
+module.exports.SearchConnections = async (req, res) => {
+  try {
+    let userId = req.userData.id;
+    let searchTerm = req.body.searchTerm;
+    let user = await User.findById(userId);
+    // Search connections by the searchTerm
+    const connections = user.connections.filter(connection =>
+      connection.name.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+
+    return res.status(200).json({
+        message: "Fetched results for the search",
+        searchResult : connections
+    });
+  } catch (err) {
+      console.error(err);
+      return res.status(500).json({ message: 'Internal server error' });
+  }
+};
+
