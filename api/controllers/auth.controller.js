@@ -1,6 +1,7 @@
 const User = require('../models/user.schema');
 const { errorResponse } = require('../middleware/ErrorHandler');
 const jwt = require('jsonwebtoken');
+const { createWallet } = require('../helpers/wallet.helper');
 
 const  maxAge = 3*24*60*60;
 
@@ -20,10 +21,12 @@ module.exports.SignUp = async (req, res) => {
         });
         const token = createToken(user._id);
         res.cookie('jwt',token,{httpOnly:true,maxAge});
+        const message = await createWallet(user._id);
         res.status(201).json({
-            user:user._id,
+            user: user._id,
             userName: user.name,
-            token: token
+            token: token,
+            message: message
         });
     } catch (err) {
         console.error(err);
