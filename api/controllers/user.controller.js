@@ -225,3 +225,8 @@ module.exports.SearchConnections = async (req, res) => {
   }
 };
 
+module.exports.LoadFunds = async (req, res) => {
+  // open paypal send to page send to merchant businees email id 
+  // when this transaction is success receive the amount transacted and status 
+  // if status is ok then update the wallet of that amount tansacted
+};

@@ -1,7 +1,7 @@
 const User = require('../models/user.schema');
 const Wallet = require('../models/wallet.schema');
 
-module.exports.createWallet = async (userId) => {
+module.exports.CreateWallet = async (userId) => {
   try {
     // Check if the user exists
     const user = await User.findById(userId);

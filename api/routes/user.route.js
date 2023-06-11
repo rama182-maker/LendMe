@@ -9,6 +9,7 @@ router.post("/withdrawrequest",checkAccessToken, userController.WithdrawConnecti
 router.post("/respondtorequest",checkAccessToken, userController.RespondToRequest);
 router.post("/setlendingstatus",checkAccessToken, userController.SetLendingStatus);
 router.post("/searchconnections",checkAccessToken, userController.SearchConnections);
+router.post("/loadfunds",checkAccessToken, userController.LoadFunds);
 
 // GET
 router.get("/getallconnections",checkAccessToken, userController.GetAllConnections);
